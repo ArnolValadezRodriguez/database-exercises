@@ -107,3 +107,7 @@
 	        name,
 	        genre 
         FROM albums WHERE genre LIKE '%Rock%';
+
+
+Extra Notes
+ https://ds-review-hub.github.io/basic_statements_lesson
