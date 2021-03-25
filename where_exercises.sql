@@ -53,6 +53,10 @@ last names end with E, regardless of whether they start with E?*/
 SELECT last_name
 FROM employees
 WHERE last_name LIKE 'E%' AND last_name LIKE '%E'
+
+SELECT *
+FROM employees
+WHERE last_name LIKE 'E%E';
 --899
 
 SELECT last_name
@@ -65,6 +69,10 @@ employees returned.*/
 SELECT hire_date
 FROM employees
 WHERE hire_date BETWEEN '1990-01-01' AND '1999-12-31';
+
+SELECT hire_date
+FROM employees
+WHERE hire_date LIKE '199%';
 -- 135,214
 
 /*9. Find all current or previous employees born on Christmas. Enter a comment with the number of 
@@ -72,6 +80,10 @@ employees returned.*/
 SELECT birth_date
 FROM employees
 WHERE birth_date LIKE '%-12-25';
+
+SELECT birth_date
+FROM employees
+WHERE birth_date LIKE '%12-25'
 -- 842
 
 /*10. Find all current or previous employees hired in the 90s and born on Christmas. Enter a comment 
@@ -82,6 +94,13 @@ SELECT
 FROM employees
 WHERE birth_date LIKE '%-12-25' 
 	AND hire_date BETWEEN '1990-01-01' AND '1999-12-31'; 
+
+SELECT 
+	birth_date,
+	hire_date
+FROM employees
+WHERE birth_date LIKE '%-12-25' 
+	AND hire_date LIKE '199%';
 -- 362
 
 /*11. Find all current or previous employees with a 'q' in their last name. Enter a comment with the 
