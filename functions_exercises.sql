@@ -22,9 +22,14 @@ SELECT min(salary)
 FROM salaries;
 -- 38623
 
-SELECT max(salary) 
+SELECT min(salary) 
+FROM salaries
+WHERE to_date like 9999%;
+-- better way to find current
+
+SELECT max(salary), min(salary) 
 FROM salaries;
--- 158220
+-- 158220, for both answers together
 
 /*6. Use your knowledge of built in SQL functions to generate a username for all of the employees. 
 A username should be all lowercase, and consist of the first character of the employees first name, 
