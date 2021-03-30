@@ -12,6 +12,11 @@ Assistant Engineer
 Technique Leader
 Manager*/
 
+SELECT count(DISTINCT 
+	title)
+FROM titles;
+-- get count
+
 /*3. Write a query to to find a list of all unique last names of all employees that start 
 and end with 'E' using GROUP BY.*/
 SELECT last_name
@@ -86,4 +91,15 @@ FROM employees
 GROUP BY username;
 -- Yes, there are duplicate usernames.
 
-
+SELECT 
+	lower(concat(substring(first_name, 1, 1), 
+	substring(last_name, 1, 4), '_', 
+	substring(birth_date, 6, 2), 
+	substring(YEAR(birth_date), 3, 2)))
+AS Username,
+count(*) AS number_of_duplicates
+FROM employees
+GROUP BY username
+HAVING number_of_duplicates > 1
+ORDER BY number_of_duplicates DESC;
+-- Using HAVING as a clause to show duplicates
