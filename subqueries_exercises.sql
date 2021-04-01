@@ -8,8 +8,21 @@ WHERE hire_date IN (
 	SELECT hire_date
 	FROM employees
 	WHERE emp_no = 101010);
-
 -- 69
+
+select *
+from employees
+where hire_date in (
+	select hire_date
+	from employees
+	where emp_no = 101010
+)
+and emp_no in (
+	select emp_no
+	from dept_emp
+	where to_date > curdate()
+);
+-- 55, forgot to add 
 
 /*2. Find all the titles ever held by all current employees with the first name Aamod.*/
 SELECT 
@@ -39,6 +52,38 @@ GROUP BY title
 ORDER BY number_of_employees DESC;
 -- Faith's answer
 
+SELECT title
+FROM titles
+WHERE emp_no IN
+	(
+		SELECT `emp_no`
+		FROM `employees`
+		WHERE first_name LIKE 'aamod' AND to_date > curdate());
+-- Wrong?
+
+SELECT
+      t.title AS 'Titles Held by Aamods',
+      COUNT(t.title) AS 'Total Aamods Who Held Title'
+FROM titles AS t
+WHERE
+      t.emp_no IN
+      (
+            SELECT
+                  e.emp_no
+            FROM employees AS e
+            JOIN salaries AS s
+                  ON e.emp_no = s.emp_no
+                        AND s.to_date > CURDATE()
+            WHERE
+                first_name LIKE 'Aamod'
+      )
+GROUP BY
+      t.title
+;
+-- Correct answer by ray, 251
+
+
+
 /*3. How many people in the employees table are no longer working for the company? Give the answer 
 in a comment in your code.*/
 SELECT 
@@ -49,6 +94,16 @@ WHERE emp_no NOT IN (
 	FROM dept_emp
 	WHERE to_date > curdate());
 -- 59900
+
+SELECT
+	COUNT(*)
+FROM employees
+WHERE emp_no NOT IN (
+					SELECT emp_no
+					FROM salaries
+					WHERE to_date = '9999-01-01'
+					);
+-- same answer
 
 /*4. Find all the current department managers that are female. List their names in a comment in your 
 code.*/
