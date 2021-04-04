@@ -54,6 +54,38 @@ FROM sakila.payment;
 average pay. In order to make the comparison easier, you should use the Z-score for salaries. 
 In terms of salary, what is the best department right now to work for? The worst?*/
 
+CREATE TEMPORARY TABLE current_avg_sal_by_dept AS
+(
+      SELECT
+            d.dept_no AS dept_no,
+            AVG(s.salary) AS avg_sal
+      FROM employees.salaries AS s
+      JOIN employees.dept_emp AS de
+            ON s.emp_no = de.emp_no
+                  AND de.to_date > CURDATE()
+      JOIN employees.departments AS d
+            ON d.dept_no = de.dept_no
+      WHERE
+            s.to_date > CURDATE()
+      GROUP BY
+            d.dept_no
+);
 
+SELECT
+      d.dept_name,
+      (ca.avg_sal - AVG(s.salary)) / STDDEV(s.salary) AS z_score
+FROM employees.departments AS d
+JOIN employees.dept_emp AS de
+      ON d.dept_no = de.dept_no
+JOIN employees.salaries AS s
+      ON de.emp_no = s.emp_no
+JOIN current_avg_sal_by_dept AS ca
+      ON de.dept_no = ca.dept_no
+GROUP BY
+      d.dept_name,
+      ca.avg_sal
+ORDER BY
+      z_score DESC
+;
 
 
