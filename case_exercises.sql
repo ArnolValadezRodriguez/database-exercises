@@ -58,3 +58,16 @@ GROUP BY decade_baby;
 /*1. What is the current average salary for each of the following department groups: R&D, 
 Sales & Marketing, Prod & QM, Finance & HR, Customer Service?*/
 
+
+
+
+
+
+-- Links to Faith's Lessons
+https://ds-review-hub.github.io/group_by_lesson
+https://ds-review-hub.github.io/sql_intro
+https://ds-review-hub.github.io/where_lesson 
+https://ds-review-hub.github.io/basic_statements_lesson 
+https://ds-review-hub.github.io/sql_tables_and_joins
+https://ds-review-hub.github.io/case_statements_lesson
+https://ds-review-hub.github.io/sql_extras
